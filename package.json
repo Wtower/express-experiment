@@ -15,6 +15,8 @@
     "serve-favicon": "~2.3.0",
     "sequelize": "~3.15.1",
     "sequelize-cli": "~2.2.1",
-    "sqlite3": "~3.1.1"
+    "sqlite3": "~3.1.1",
+    "passport-local": "~1.0.0",
+    "passport": "~0.3.2"
   }
 }
