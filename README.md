@@ -1,12 +1,11 @@
-==================
-express-experiment
-==================
+# express-experiment
 
-Learning express.js with Angular, Sequelize, Passport. 
+
+Learning express.js with Angular, Sequelize, Passport.
 For people coming from Django background.
 
-Desired technologies
---------------------
+
+## Desired technologies
 
 - Nodejs
 - Express
@@ -14,8 +13,8 @@ Desired technologies
 - Passport
 - Angular
 
-Node
-----
+
+## Node
 
 [Install on Ubuntu](http://stackoverflow.com/questions/25823131/node-http-server-not-working):
 
@@ -24,8 +23,8 @@ Node
 Useful links
 - [Style guide](http://nodeguide.com/style.html)
 
-Express
--------
+
+## Express
 
 Nodejs favorite unopinionated framework
 
@@ -35,8 +34,8 @@ Useful links
 
 - [What does `./bin/www` do](http://stackoverflow.com/questions/23169941/what-does-bin-www-do-in-express-4-x)
 
-Sequelize
----------
+
+## Sequelize
 
 SQL ORM support.
 
@@ -48,8 +47,8 @@ SQL ORM support.
     npm start
     npm install --save sequelize sequelize-cli sqlite3  # or mysql or whatever
     node_modules/.bin/sequelize init
-  
-Then edit the following files as in tutorial 
+
+Then edit the following files as in tutorial
 [Using with express.js](http://docs.sequelizejs.com/en/1.7.0/articles/express/)
 
 - bin/www
@@ -61,12 +60,21 @@ Useful links
 
 - [Getting Started](http://docs.sequelizejs.com/en/latest/docs/getting-started/)
 
-- [Using with express.js](http://docs.sequelizejs.com/en/1.7.0/articles/express/)
-
 - [Express example](https://github.com/sequelize/express-example)
 
-Passport
---------
+### Migrations
+
+Create models with
+
+    node_modules/.bin/sequelize help:model:create
+    node_modules/.bin/sequelize model:create --name User --attributes 'first_name:string, last_name:string, bio:text'
+
+Run migrations with
+
+    node_modules/.bin/sequelize db:migrate
+
+
+## Passport
 
 Authentication middleware. Express does not have anything like Django or
 Rails have, but Passport adds great capabilities.
@@ -83,16 +91,14 @@ Useful links
 
 - [Other tutorial](https://orchestrate.io/blog/2014/06/26/build-user-authentication-with-node-js-express-passport-and-orchestrate/)
 
-Angular
--------
 
-Avoid classic node.js templates such as Jade and use Angular directly.
+## Angular
 
 Useful links
 - [Tutorial](https://code.angularjs.org/1.4.8/docs/tutorial/step_00)
 - [Repo](https://github.com/angular/angular-phonecat)
 
-Other template engines
+Template engines
 - Jade
 - [Handlebars](http://handlebarsjs.com/)
 - [Swig](http://paularmstrong.github.io/swig/)

@@ -2,9 +2,11 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Page = sequelize.define(
-    "Page", {
+    "Page",
+    {
       title: DataTypes.STRING
-    }, {
+    },
+    {
       classMethods: {
         associate: function(models) {
           Page.belongsTo(models.User, {
@@ -15,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
           });
         }
       }
-    });
+    }
+  );
   return Page;
 };
