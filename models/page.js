@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       classMethods: {
         associate: function(models) {
           Page.belongsTo(models.User, {
-            onDelete: "CASCADE",
+            onDelete: "SET NULL",
             foreignKey: {
               allowNull: false
             }

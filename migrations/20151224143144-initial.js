@@ -6,7 +6,7 @@ module.exports = {
     queryInterface.createTable(
       "User",
       {
-        id: {type: Sequelize.INTEGER, unique: true},
+        id: {type: Sequelize.INTEGER, primaryKey: true},
         username: {type: Sequelize.STRING, unique: true, validate: {is: /^[\w.@+-]+$/i}},
         password: {type: Sequelize.STRING, validate: {notEmpty: true}},
         email: {type: Sequelize.STRING, validate: {isEmail: true}},
@@ -35,7 +35,7 @@ module.exports = {
         classMethods: {
           associate: function(models) {
             Page.belongsTo(models.User, {
-              onDelete: "CASCADE",
+              onDelete: "SET NULL",
               foreignKey: {
                 allowNull: false
               }

@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define(
     "User",
     {
-      id: {type: DataTypes.INTEGER, unique: true},
+      id: {type: DataTypes.INTEGER, primaryKey: true},
       username: {type: DataTypes.STRING, unique: true, validate: {is: /^[\w.@+-]+$/i}},
       password: {type: DataTypes.STRING, validate: {notEmpty: true}},
       email: {type: DataTypes.STRING, validate: {isEmail: true}},
