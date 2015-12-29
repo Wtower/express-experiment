@@ -1,10 +1,12 @@
 'use strict';
 
+//noinspection JSUnusedGlobalSymbols
 module.exports = {
   up: function (queryInterface, Sequelize) {
     queryInterface.createTable(
       "User",
       {
+        id: {type: Sequelize.INTEGER, unique: true},
         username: Sequelize.STRING
       },
       {
@@ -35,7 +37,7 @@ module.exports = {
     );
   },
 
-  down: function (queryInterface, Sequelize) {
+  down: function (queryInterface) {
     queryInterface.dropTable('User');
     queryInterface.dropTable('Page');
   }

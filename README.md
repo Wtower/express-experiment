@@ -73,6 +73,9 @@ Run migrations with
 
     node_modules/.bin/sequelize db:migrate
 
+Note: no need to keep extensive migrations as with Django makemigrations,
+all migrations pre release can be in the same file.
+
 
 ## Passport
 
