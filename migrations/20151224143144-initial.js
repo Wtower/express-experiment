@@ -7,7 +7,16 @@ module.exports = {
       "User",
       {
         id: {type: Sequelize.INTEGER, unique: true},
-        username: Sequelize.STRING
+        username: {type: Sequelize.STRING, unique: true, validate: {is: /^[\w.@+-]+$/i}},
+        password: {type: Sequelize.STRING, validate: {notEmpty: true}},
+        email: {type: Sequelize.STRING, validate: {isEmail: true}},
+        first_name: Sequelize.STRING(30),
+        last_name: Sequelize.STRING(30),
+        is_staff: Sequelize.BOOLEAN,
+        is_active: Sequelize.BOOLEAN,
+        is_superuser: Sequelize.BOOLEAN,
+        date_joined: Sequelize.DATE,
+        last_login: Sequelize.DATE
       },
       {
         classMethods: {

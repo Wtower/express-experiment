@@ -5,7 +5,16 @@ module.exports = function(sequelize, DataTypes) {
     "User",
     {
       id: {type: DataTypes.INTEGER, unique: true},
-      username: DataTypes.STRING
+      username: {type: DataTypes.STRING, unique: true, validate: {is: /^[\w.@+-]+$/i}},
+      password: {type: DataTypes.STRING, validate: {notEmpty: true}},
+      email: {type: DataTypes.STRING, validate: {isEmail: true}},
+      first_name: DataTypes.STRING(30),
+      last_name: DataTypes.STRING(30),
+      is_staff: DataTypes.BOOLEAN,
+      is_active: DataTypes.BOOLEAN,
+      is_superuser: DataTypes.BOOLEAN,
+      date_joined: DataTypes.DATE,
+      last_login: DataTypes.DATE
     },
     {
       classMethods: {
