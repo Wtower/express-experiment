@@ -82,6 +82,10 @@ Notes:
   Therefore migrations without sync is not working. Have not tested what happens with both.
   This behaviour is undesirable and undocumented.
 
+- Alternatively use sails' [waterline](https://github.com/balderdashy/waterline) individually.
+  It only offers automatic migrations, so for manual use possibly tools as [apgdiff](http://apgdiff.com/index.php)
+  or [SchemaSync](https://github.com/mmatuson/SchemaSync).
+
 
 ## Passport
 
@@ -107,9 +111,16 @@ Useful links
 - [Tutorial](https://code.angularjs.org/1.4.8/docs/tutorial/step_00)
 - [Repo](https://github.com/angular/angular-phonecat)
 
-Template engines
-- Jade
+## Template engines
+
+Express uses Jade. Other possibilities:
+
+- [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) (Jinja2 in node)
 - [Handlebars](http://handlebarsjs.com/)
-- [Swig](http://paularmstrong.github.io/swig/)
 - [Underscore](http://documentcloud.github.io/underscore/)
 - [More...](https://www.quora.com/What-is-the-best-Node-js-template-engine)
+
+## Other modules
+
+http://stackoverflow.com/questions/21821773/configure-node-express-to-serve-static-bower-components
+https://github.com/mashpie/i18n-node
