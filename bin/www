@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('express:server');
 var http = require('http');
-var models = require("../models");
 
 /**
  * Get port from environment and store in Express.
@@ -15,11 +14,6 @@ var models = require("../models");
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
-/**
- * Sequelize sync
- */
-//models.sequelize.sync().then(function() {
 
 /**
  * Create HTTP server.
@@ -74,8 +68,6 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
-//});
 
 /**
  * Normalize a port into a number, string, or false.

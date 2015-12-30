@@ -9,7 +9,7 @@ For people coming from Django background.
 
 - Nodejs
 - Express
-- Sequelize
+- Waterline
 - Passport
 - Angular
 
@@ -35,56 +35,11 @@ Useful links
 - [What does `./bin/www` do](http://stackoverflow.com/questions/23169941/what-does-bin-www-do-in-express-4-x)
 
 
-## Sequelize
+## Waterline
 
-SQL ORM support.
-
-    mkdir express-app
-    cd express-app
-    npm install express express-generator
-    node_modules/.bin/express . -f
-    npm install
-    npm start
-    npm install --save sequelize sequelize-cli sqlite3  # or mysql or whatever
-    node_modules/.bin/sequelize init
-
-Then edit the following files as in tutorial
-[Using with express.js](http://docs.sequelizejs.com/en/1.7.0/articles/express/)
-
-- bin/www
-- models/(mymodels).js
-- routes/index.js
-- views/index.jade
-
-Useful links
-
-- [Getting Started](http://docs.sequelizejs.com/en/latest/docs/getting-started/)
-
-- [Express example](https://github.com/sequelize/express-example)
-
-### Migrations
-
-Create models with
-
-    node_modules/.bin/sequelize help:model:create
-    node_modules/.bin/sequelize model:create --name User --attributes 'first_name:string, last_name:string, bio:text'
-
-Run migrations with
-
-    node_modules/.bin/sequelize db:migrate
-
-Notes:
-
-- No need to keep extensive migrations as with Django makemigrations,
-  all migrations pre release can be in the same file.
-
-- Sequelize sync (`.bin/www`) appears to create two tables per model (eg user and users) with common fields.
-  Therefore migrations without sync is not working. Have not tested what happens with both.
-  This behaviour is undesirable and undocumented.
-
-- Alternatively use sails' [waterline](https://github.com/balderdashy/waterline) individually.
-  It only offers automatic migrations, so for manual use possibly tools as [apgdiff](http://apgdiff.com/index.php)
-  or [SchemaSync](https://github.com/mmatuson/SchemaSync).
+Use sails' [waterline](https://github.com/balderdashy/waterline) individually as ORM.
+It only offers automatic migrations, so for manual use possibly tools as [apgdiff](http://apgdiff.com/index.php)
+or [SchemaSync](https://github.com/mmatuson/SchemaSync).
 
 
 ## Passport
