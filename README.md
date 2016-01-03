@@ -1,16 +1,15 @@
 # express-experiment
 
 
-Learning express.js with Angular, Sequelize, Passport.
-For people coming from Django background.
+Learning express.js for people coming from Django or Rails background.
 
 
 ## Desired technologies
 
 - Nodejs
 - Express
-- Waterline
-- Passport
+- Bookshelf (ORM)
+- Passport (user auth)
 - Angular
 
 
@@ -23,6 +22,7 @@ For people coming from Django background.
 Or use nvm as described in [deployment section](#deployment).
 
 Useful links
+- [Loading modules](https://nodejs.org/dist/latest-v4.x/docs/api/modules.html#modules_modules)
 - [Style guide](http://nodeguide.com/style.html)
 
 
@@ -37,11 +37,44 @@ Useful links
 - [What does `./bin/www` do](http://stackoverflow.com/questions/23169941/what-does-bin-www-do-in-express-4-x)
 
 
-## Waterline
+## Bookshelf
 
-Use sails' [waterline](https://github.com/balderdashy/waterline) individually as ORM.
-It only offers automatic migrations, so for manual use possibly tools as [apgdiff](http://apgdiff.com/index.php)
-or [SchemaSync](https://github.com/mmatuson/SchemaSync).
+[Bookshelf](http://bookshelfjs.org/) is the preferred ORM with many features
+that resemble the functionality of Django or Rails.
+Migrations is a very important feature for well-maintained apps and Bookshelf is thriving in that.
+
+Other ORM possibilities include Sequelize, ORM2 and Waterline.
+Sequelize is the most common. Unfortunately, there are major shortages in documentation and many features
+including migrations are just not natural enough, at least for someone coming from Django or Rails.
+ORM2 does not offer migrations at all. Waterline offers some migration functionality but
+it seems like it is trying to do too much magic with many different db possibilities and
+it ends up using the lowest common denominator.
+Some critique [here](https://kev.inburke.com/kevin/dont-use-sails-or-waterline/).
+
+Guide:
+
+    npm install -S bookshelf knex sqlite3 checkit moment
+    node_modules/.bin/knex init
+
+The last one creates a `knexfile.js`, which needs to be updated with connection settings.
+Then add a directory `services\` and files `index.js` and `bookshelf.js`.
+Initialisation happens in bookshelf.
+
+Then create a subdirectory `migrations` and run
+
+    node_modules/.bin/knex migrate:make user
+
+Edit the newly created file in migrations and then:
+
+    node_modules/.bin/knex migrate:latest
+
+Then create the routes and views in `routes/index.js` and `views/`.
+
+Notice: Bookshelf should be initialised once, if console logs more than one init then move require to app.js.
+
+Useful links
+
+- [Tutorial](http://davidhunt.io/making-a-new-node-js-app-feel-more-like-rails-part-1)
 
 
 ## Passport
@@ -81,9 +114,11 @@ Express uses Jade. Other possibilities:
 
 ## Other modules
 
-- http://stackoverflow.com/questions/21821773/configure-node-express-to-serve-static-bower-components
-- https://github.com/mashpie/i18n-node
-- https://github.com/expressjs/multer
+- [Bower](http://stackoverflow.com/questions/21821773/configure-node-express-to-serve-static-bower-components)
+- [i18n](https://github.com/mashpie/i18n-node)
+- [multer](https://github.com/expressjs/multer)
+- [express-debug](http://stackoverflow.com/a/34574680/940098)
+- [caching](https://github.com/addisonj/node-cacher)
 
 
 ## Deployment
@@ -109,6 +144,9 @@ Do not rely on OS repo node, chances are that is massively outdated.
 Express requires node >v0.8 and eg Ubuntu 12.04 has got node v0.6 (see also [this]
 (http://stackoverflow.com/questions/25874666/express-app-throws-500-typeerror-object-eventemitter-has-no-method-hrtime)).
 One-time installation of node is easy, but to allow multiple versions (as python virtualenv), nvm can be used easily.
+Also, v4.0 and above (after the merge with io.js) has compilation issues with older LTS releases such as Ubuntu 12.04
+Therefore v0.12.x is recommended for general availability, which is maintained, unless particular features
+are required.
 
 Prerequisites:
 
@@ -125,16 +163,16 @@ This creates an `~/.nvm` directory and also executes the appended lines in bash 
 Install a node version:
 
     nvm ls-remote
-    nvm install 0.12.0
+    nvm install 0.12.9
 
 And use it with:
 
     nvm ls
-    nvm use 0.12.0
+    nvm use 0.12.9
 
 Alias:
 
-    nvm alias default 0.12.0
+    nvm alias default 0.12.9
     nvm use default
 
 Npm starts from the particular node version, eg in `~/.nvm/v0.12.0/lib/node_modules/npm`.
@@ -195,3 +233,15 @@ node is down, a 503 error will be issueed and then Apache will retry after 60 se
 or whatever specified in [retry setting]
 (http://serverfault.com/questions/58707/how-to-avoid-restarting-apache-proxy-when-you-restart-couchdb)
 ([reference](http://httpd.apache.org/docs/2.2/mod/mod_proxy.html#proxypass)).
+
+
+## IDE
+
+I chose to use Jetbrains [WebStorm](https://www.jetbrains.com/webstorm/). It offers several neat features
+that help development.
+
+### Configuration
+
+I specify a `.editorconfig` file for the code styling.
+Also, it is important to specify the appropriate nvm node version in
+Settings: Language and frameworks: Node and NPM.

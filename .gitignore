@@ -1,4 +1,4 @@
 node_modules/
 npm-debug.log
-db.development.sqlite
+db.dev.sqlite3
 .idea/
