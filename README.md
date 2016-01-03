@@ -75,7 +75,7 @@ Notice: Bookshelf should be initialised once, if console logs more than one init
 Useful links
 
 - [Tutorial](http://davidhunt.io/making-a-new-node-js-app-feel-more-like-rails-part-1)
-
+- [Migration order](https://github.com/tgriesser/knex/issues/993)
 
 ## Passport
 
