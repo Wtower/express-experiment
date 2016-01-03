@@ -5,39 +5,30 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './dev.sqlite3'
+      filename: './db.dev.sqlite3'
+    },
+    migrations: {
+      tableName: 'migrations'
     }
   },
 
   staging: {
-    client: 'postgresql',
+    client: 'sqlite3',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
+      filename: './db.dev.sqlite3'
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'migrations'
     }
   },
 
   production: {
-    client: 'postgresql',
+    client: 'sqlite3',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
+      filename: './db.dev.sqlite3'
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'migrations'
     }
   }
 
