@@ -56,9 +56,21 @@ Guide:
     npm install -S bookshelf knex sqlite3 checkit moment
     node_modules/.bin/knex init
 
-The last one creates a `knexfile.js`. Then add a directory `services\` and files `index.js` and `bookshelf.js`.
-Initialisation happens in bookshelf. Edit knexfile and bookshelf files configuration.
-(Note: test to remove repeating configuration from bookshelf to see if knexfile covers it).
+The last one creates a `knexfile.js`, which needs to be updated with connection settings.
+Then add a directory `services\` and files `index.js` and `bookshelf.js`.
+Initialisation happens in bookshelf.
+
+Then create a subdirectory `migrations` and run
+
+    node_modules/.bin/knex migrate:make user
+
+Edit the newly created file in migrations and then:
+
+    node_modules/.bin/knex migrate:latest
+
+Then create the routes and views in `routes/index.js` and `views/`.
+
+Notice: Bookshelf should be initialised once, if console logs more than one init then move require to app.js.
 
 Useful links
 

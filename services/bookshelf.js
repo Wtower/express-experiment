@@ -1,12 +1,4 @@
-var knex = require('knex')({
-  client: 'sqlite3',
-  connection: {
-    filename: './db.dev.sqlite3'
-  },
-  pool: {
-    min: 1,
-    max: 1
-  }
-});
-
+var knexFile = require('../knexfile.js');
+var knex = require('knex')(knexFile.development);
 var bookshelf = module.exports = require('bookshelf')(knex);
+console.log('Bookshelf initialised');
