@@ -5,7 +5,11 @@ block content
   p User list
   <hr>
 
-  p= users.get('username')
-  //each user in users
+  form(action="/user", method="post")
+    input(type="text", name="username")
+    input(type="submit")
+  hr
+
+  each user in users.models
     a(href='/users/')
       p= user.get('username')
