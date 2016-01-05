@@ -4,13 +4,31 @@
 Learning express.js for people coming from Django or Rails background.
 
 
-## Desired technologies
+## Summary
 
-- Nodejs
-- Express
-- Bookshelf (ORM)
-- Passport (user auth)
-- Angular
+I am a Django dev. I highly value Django for many of its features. But there are some things that really feel old.
+One of my recent despairs was with wsgi. So I thought to take a look once more on node.js fresh.
+Aside from the fact that another tech which I really love, angular, must really benefit from node.
+Some early [conclusions at the end of the document](#conclusions).
+
+### Desired technologies
+
+I have decided to use the following technologies in order to cover existing Django functionality.
+The remaining document is structured on this, where it is covered why the particular technology has
+been selected.
+
+- [Nodejs](#node)
+- [Express](#express)
+- [Bookshelf](#bookshelf) (ORM)
+- [Jade](#jade) (templates)
+- [Bower](#bower) (asset management)
+- [Angular](#angular)
+- [Passport](#passport) (user auth)
+
+Other topics:
+
+- [Deployment](#deployment)
+- [IDE](#ide)
 
 
 ## Node
@@ -22,6 +40,8 @@ Learning express.js for people coming from Django or Rails background.
 Or use nvm as described in [deployment section](#deployment).
 
 Useful links
+
+- [Node.js](https://nodejs.org/en/)
 - [Loading modules](https://nodejs.org/dist/latest-v4.x/docs/api/modules.html#modules_modules)
 - [Style guide](http://nodeguide.com/style.html)
 
@@ -32,8 +52,9 @@ Nodejs favorite unopinionated framework
 
 Useful links
 
+- [Express.js](http://expressjs.com/)
 - [Tutorial](http://expressjs.com/en/starter/installing.html)
-
+- [Promises](http://bluebirdjs.com/docs/api-reference.html)
 - [What does `./bin/www` do](http://stackoverflow.com/questions/23169941/what-does-bin-www-do-in-express-4-x)
 
 
@@ -74,10 +95,77 @@ Notice: Bookshelf should be initialised once, if console logs more than one init
 
 Useful links
 
+- [Bookshelf](http://bookshelfjs.org/)
 - [Tutorial](http://davidhunt.io/making-a-new-node-js-app-feel-more-like-rails-part-1)
+- [Migration order](https://github.com/tgriesser/knex/issues/993)
+- [CRUD examples](http://blog.ragingflame.co.za/2014/12/16/building-a-simple-api-with-express-and-bookshelfjs)
 
 
-## Passport
+## Jade
+
+Express uses [Jade](http://jade-lang.com/reference/). Other possibilities:
+
+- [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) (Jinja2 in node)
+- [Handlebars](http://handlebarsjs.com/)
+- [Underscore](http://documentcloud.github.io/underscore/)
+- [More...](https://www.quora.com/What-is-the-best-Node-js-template-engine)
+
+
+## Bower
+
+Great utility that manages assets.
+
+    npm install bower
+    node_modules/.bin/bower init
+    node_modules/.bin/bower install
+
+Scripts can be used as:
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+The first main advantage of bower is asset version management. This is worth against possible cdn speed gains
+(see [this thread](https://laracasts.com/forum/?p=2238-bower-or-cdn-for-production/0),
+[this post by Steve Souders](http://www.stevesouders.com/blog/2013/03/18/http-archive-jquery/) and
+[this post](http://statichtml.com/2011/google-ajax-libraries-caching.html)).
+
+Besides, `grunt-cdnify` could be used to change all bower references to cdn, but it has got issues as
+[this one](http://stackoverflow.com/questions/21661289/grunt-cdnify-does-not-cndify-the-files).
+
+Furthermore, utilities such as [`grunt-bower-requirejs`](https://github.com/yeoman/grunt-bower-requirejs)
+can be used to combine bower with [RequireJS](http://requirejs.org/docs/start.html), which is great
+for async loading of scripts.
+Additionally, RequireJS has an [optimisation feature](http://requirejs.org/docs/optimization.html) available.
+
+Useful links
+
+- http://bower.io/
+- http://stackoverflow.com/questions/21821773/configure-node-express-to-serve-static-bower-components
+
+
+## Angular
+
+Replaced `views/index.jade` records and form with angular directives and added `javascripts/controller.js`.
+Modified `routes/user.js` to return json.
+
+Useful links
+
+- [Angular tutorial](https://code.angularjs.org/1.4.8/docs/tutorial/step_00)
+- [Tutorial repo](https://github.com/angular/angular-phonecat)
+- [Angular in express](http://briantford.com/blog/angular-express)
+
+
+## Other important modules (not yet implemented)
+
+### Csurf
+
+:warning: CSRF protection module.
+
+Useful links
+
+- https://www.npmjs.com/package/csurf
+- http://expressjs.com/en/advanced/best-practice-security.html
+
+### Passport
 
 Authentication middleware. Express does not have anything like Django or
 Rails have, but Passport adds great capabilities.
@@ -94,27 +182,8 @@ Useful links
 
 - [Other tutorial](https://orchestrate.io/blog/2014/06/26/build-user-authentication-with-node-js-express-passport-and-orchestrate/)
 
+### Other interesting modules
 
-## Angular
-
-Useful links
-- [Tutorial](https://code.angularjs.org/1.4.8/docs/tutorial/step_00)
-- [Repo](https://github.com/angular/angular-phonecat)
-
-
-## Template engines
-
-Express uses Jade. Other possibilities:
-
-- [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) (Jinja2 in node)
-- [Handlebars](http://handlebarsjs.com/)
-- [Underscore](http://documentcloud.github.io/underscore/)
-- [More...](https://www.quora.com/What-is-the-best-Node-js-template-engine)
-
-
-## Other modules
-
-- [Bower](http://stackoverflow.com/questions/21821773/configure-node-express-to-serve-static-bower-components)
 - [i18n](https://github.com/mashpie/i18n-node)
 - [multer](https://github.com/expressjs/multer)
 - [express-debug](http://stackoverflow.com/a/34574680/940098)
@@ -245,3 +314,34 @@ that help development.
 I specify a `.editorconfig` file for the code styling.
 Also, it is important to specify the appropriate nvm node version in
 Settings: Language and frameworks: Node and NPM.
+
+
+## Conclusions
+
+Node.js has always been fascinating. There are many posts regarding the benefits of it, but I am going
+to describe what I found to be important from the aspect of development time cost. So in essence I am comparing
+my express-based experiment to Django (as much as this is possible).
+
+- Deployment: Node thrives. It is a modern solution that allows far easier scaling and management.
+
+- Async: Node's async nature is incredible. Nothing compared to other similar technologies in Python. Maybe it is not
+  the "silver bullet" as many claim, but it definitely brings new possibilities design-wise. The use of
+  bluebird promises greatly reduces the complication of code maintenance. Disclaimer: haven't debugged
+  a large app yet in node.
+
+- Modules: many available modules but with less quality in documentation.
+
+- ORM: many mediocre solutions (see above about modules). I liked Bookshelf, but it reminds
+  what Django has been 3 or 4 years earlier: basic functionality, even more basic migrations (south).
+
+- Forms, formsets, serializers: important stuff in Django, which are almost totally irrelevant to node.
+
+- Views, routes: pretty much the same functionality. I really do not understand why all router urls are
+  hard-coded in express.
+
+- Templates: In first glance Jade looks alien. But after spending some time with it, I found it to be
+  the "Python" of templates. Lean small code, simply fantastic. Here I will also add the easiness to
+  include angular in it.
+
+- Contrib: auth requires some model work in node. Apart from that, passport takes auth possibilities to another level.
+  Regarding admin, this is something totally missing. But it shouldn't be that hard to implement CRUD in node.

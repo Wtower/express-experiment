@@ -2,10 +2,33 @@ extends layout
 
 block content
   h1= title
-  p User list
-  <hr>
 
-  p= users.get('username')
-  //each user in users
-    a(href='/users/')
-      p= user.get('username')
+  div(ng-app='expressApp')
+    h2 User list
+    hr
+
+    div(ng-controller='FormCtrl')
+      form(name='userForm', class='user-form', novalidate)
+        input(type='text', ng-model='form.username', required, placeholder="Enter username")
+        button(type='submit',
+          ng-click="submit('/user', form)",
+          ng-disabled="userForm.$invalid || state > states.normal",
+          ng-class="{'form-submitting': state == states.submitting, 'form-submitted': state == states.submitted}"
+        )
+          span(ng-show="state == states.normal") Submit
+          span(ng-show="state == states.submitting")
+            span(class='glyphicon glyphicon-refresh spinning'): span Submitting
+          span(ng-show="state == states.submitted")
+            span(class='glyphicon glyphicon-ok'): span Submitted
+    hr
+
+    h2 Live data (angular)
+    div(ng-controller='ListCtrl', ng-init="fetch('/user')")
+      ul: li(ng-repeat="user in rows", ng-bind="user.username")
+    hr
+  script(src='/javascripts/controller.js')
+
+  h2 Initial data (jade)
+  ul
+    each user in users.models
+      li= user.get('username')

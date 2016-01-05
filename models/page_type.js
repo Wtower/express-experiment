@@ -2,14 +2,13 @@ var services  = require('../services');
 var checkit   = require('checkit');
 
 module.exports = services.bookshelf.Model.extend({
-  tableName: 'user',
-  hasTimestamps: ['created_at', 'updated_at'],
+  tableName: 'page_type',
   initialize: function(attrs, opts) {
     this.on('saving', this.validateSave);
   },
   validateSave: function() {
     return new checkit({
-      username: 'required'
+      name: 'required'
     }).run(this.attributes);
   }
 });
