@@ -21,8 +21,8 @@ block content
     hr
 
     h2 Live data (angular)
-    div(ng-controller='ListCtrl')
-      ul: li(ng-init="url = '/user'", ng-repeat="user in rows", ng-bind="user")
+    div(ng-controller='ListCtrl', ng-init="fetch('/user')")
+      ul: li(ng-repeat="user in rows", ng-bind="user.username")
     hr
   script(src='/javascripts/controller.js')
 
