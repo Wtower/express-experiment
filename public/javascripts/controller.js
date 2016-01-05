@@ -7,14 +7,17 @@ var expressApp = angular.module('expressApp', []);
  * http://stackoverflow.com/questions/19515017/notify-of-changes-between-controllers-that-may-or-may-not-exist
  */
 expressApp.controller('FormCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
-  $scope.submitting = false;
-  $scope.submitted = false;
+  $scope.states = {
+    normal: 0,
+    submitting: 1,
+    submitted: 2
+  };
+  $scope.state = $scope.states.normal;
   $scope.submit = function(url, form) {
-    $scope.submitting = true;
+    $scope.state = $scope.states.submitting;
     $http.post(url, form)
       .then(function() {  // success
-        $scope.submitting = false;
-        $scope.submitted = true;
+        $scope.state = $scope.states.submitted;
         $rootScope.$broadcast('submitted');
       }, function(res) {  // fail
         console.log(res);
