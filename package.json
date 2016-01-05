@@ -16,6 +16,7 @@
     "express-session": "^1.12.1",
     "jade": "~1.11.0",
     "knex": "^0.9.0",
+    "less-middleware": "^2.0.1",
     "moment": "^2.11.0",
     "morgan": "~1.6.1",
     "passport": "~0.3.2",

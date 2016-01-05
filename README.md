@@ -23,6 +23,7 @@ been selected.
 - [Jade](#jade) (templates)
 - [Bower](#bower) (asset management)
 - [Angular](#angular)
+- [Less](#less) (css preprocessor)
 - [Passport](#passport) (user auth)
 
 Other topics:
@@ -152,6 +153,18 @@ Useful links
 - [Angular tutorial](https://code.angularjs.org/1.4.8/docs/tutorial/step_00)
 - [Tutorial repo](https://github.com/angular/angular-phonecat)
 - [Angular in express](http://briantford.com/blog/angular-express)
+
+
+## Less
+
+Using the [Less](http://lesscss.org/) css preprocessor is very easy with node,
+and helps deal with css maintenance a lot.
+
+    npm install -S less-middleware
+
+Then in `app.js` add:
+
+    app.use(require('less-middleware')(path.join(__dirname, 'public')));
 
 
 ## Other important modules (not yet implemented)
@@ -309,11 +322,11 @@ or whatever specified in [retry setting]
 I chose to use Jetbrains [WebStorm](https://www.jetbrains.com/webstorm/). It offers several neat features
 that help development.
 
-### Configuration
+- Specify a `.editorconfig` file for the code styling.
+- Specify the appropriate nvm node version in *Settings: Language and frameworks: Node and NPM*.
+- Add express code completion in *Settings: Language and...: Javascript: Libraries: Download: express*.
 
-I specify a `.editorconfig` file for the code styling.
-Also, it is important to specify the appropriate nvm node version in
-Settings: Language and frameworks: Node and NPM.
+See also [this post](http://blog.jetbrains.com/webstorm/2014/01/getting-started-with-node-js-in-webstorm/).
 
 
 ## Conclusions
