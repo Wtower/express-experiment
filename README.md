@@ -73,7 +73,7 @@ it seems like it is trying to do too much magic with many different db possibili
 it ends up using the lowest common denominator.
 Some critique [here](https://kev.inburke.com/kevin/dont-use-sails-or-waterline/).
 
-Guide:
+### Guide
 
     npm install -S bookshelf knex sqlite3 checkit moment
     node_modules/.bin/knex init
@@ -94,11 +94,18 @@ Then create the routes and views in `routes/index.js` and `views/`.
 
 Notice: Bookshelf should be initialised once, if console logs more than one init then move require to app.js.
 
+### Migrations
+
+Chaining schema definition functions [should be ok](https://github.com/tgriesser/knex/issues/245#issuecomment-40743838).
+However [another issue](https://github.com/tgriesser/knex/issues/993) suggests to use promises instead;
+use this if simple migrations do not work.
+Also, [another post](http://stackoverflow.com/questions/22624879/how-to-do-knex-js-migrations) suggests to
+reduce the pool size.
+
 Useful links
 
 - [Bookshelf](http://bookshelfjs.org/)
 - [Tutorial](http://davidhunt.io/making-a-new-node-js-app-feel-more-like-rails-part-1)
-- [Migration order](https://github.com/tgriesser/knex/issues/993)
 - [CRUD examples](http://blog.ragingflame.co.za/2014/12/16/building-a-simple-api-with-express-and-bookshelfjs)
 
 
