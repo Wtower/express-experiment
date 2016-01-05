@@ -136,8 +136,16 @@ can be used to combine bower with [RequireJS](http://requirejs.org/docs/start.ht
 for async loading of scripts.
 Additionally, RequireJS has an [optimisation feature](http://requirejs.org/docs/optimization.html) available.
 
+Useful links
+
+- http://bower.io/
+- http://stackoverflow.com/questions/21821773/configure-node-express-to-serve-static-bower-components
+
 
 ## Angular
+
+Replaced `views/index.jade` records and form with angular directives and added `javascripts/controller.js`.
+Modified `routes/user.js` to return json.
 
 Useful links
 
@@ -146,7 +154,18 @@ Useful links
 - [Angular in express](http://briantford.com/blog/angular-express)
 
 
-## Passport
+## Other important modules (not yet implemented)
+
+### Csurf
+
+:warning: CSRF protection module.
+
+Useful links
+
+- https://www.npmjs.com/package/csurf
+- http://expressjs.com/en/advanced/best-practice-security.html
+
+### Passport
 
 Authentication middleware. Express does not have anything like Django or
 Rails have, but Passport adds great capabilities.
@@ -163,10 +182,8 @@ Useful links
 
 - [Other tutorial](https://orchestrate.io/blog/2014/06/26/build-user-authentication-with-node-js-express-passport-and-orchestrate/)
 
+### Other interesting modules
 
-## Other modules
-
-- [Bower](http://stackoverflow.com/questions/21821773/configure-node-express-to-serve-static-bower-components)
 - [i18n](https://github.com/mashpie/i18n-node)
 - [multer](https://github.com/expressjs/multer)
 - [express-debug](http://stackoverflow.com/a/34574680/940098)

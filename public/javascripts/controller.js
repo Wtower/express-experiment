@@ -5,6 +5,8 @@ var expressApp = angular.module('expressApp', []);
  * Maintains states submitting, submitted
  * Broadcasts submit for other controllers to get notified
  * http://stackoverflow.com/questions/19515017/notify-of-changes-between-controllers-that-may-or-may-not-exist
+ * http://fdietz.github.io/recipes-with-angular-js/controllers/sharing-code-between-controllers-using-services.html
+ * @todo csrf
  */
 expressApp.controller('FormCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
   $scope.states = {
@@ -35,7 +37,7 @@ expressApp.controller('FormCtrl', ['$scope', '$http', '$rootScope', function($sc
  */
 expressApp.controller('ListCtrl', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
   $scope.fetch = function(url) {
-    if (url) $scope.url = url;
+    if (url && !$scope.url) $scope.url = url;
     if (!$scope.url) return;
     $http.get($scope.url)
       .then(function(res) {
