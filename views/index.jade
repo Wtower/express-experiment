@@ -2,27 +2,28 @@ extends layout
 
 block content
   h1= title
-  h2 User list
-  hr
 
-  div(ng-app='expressApp', ng-controller='FormCtrl')
-    form(name='userForm', class='user-form', novalidate)
-      input(type='text', ng-model='form.username', required, placeholder="Enter username")
-      button(type='submit',
-        ng-click="submit('/user', form)",
-        ng-disabled="userForm.$invalid || submitting || submitted",
-        ng-class="{'form-submitting': submitting, 'form-submitted': submitted}"
-      )
-        span(ng-show="!submitting && !submitted") Submit
-        span(ng-show="submitting"): span(class='glyphicon glyphicon-refresh spinning'): span Submitting
-        span(ng-show="submitted"): span(class='glyphicon glyphicon-ok'): span Submitted
-  hr
+  div(ng-app='expressApp')
+    h2 User list
+    hr
 
-  h2 Live data (angular)
-  div(ng-app='expressApp', ng-controller='ListCtrl')
-    ul: li(ng-init="url = '/user'", ng-repeat="user in rows", ng-bind="user")
-  hr
+    div(ng-controller='FormCtrl')
+      form(name='userForm', class='user-form', novalidate)
+        input(type='text', ng-model='form.username', required, placeholder="Enter username")
+        button(type='submit',
+          ng-click="submit('/user', form)",
+          ng-disabled="userForm.$invalid || submitting || submitted",
+          ng-class="{'form-submitting': submitting, 'form-submitted': submitted}"
+        )
+          span(ng-show="!submitting && !submitted") Submit
+          span(ng-show="submitting"): span(class='glyphicon glyphicon-refresh spinning'): span Submitting
+          span(ng-show="submitted"): span(class='glyphicon glyphicon-ok'): span Submitted
+    hr
 
+    h2 Live data (angular)
+    div(ng-controller='ListCtrl')
+      ul: li(ng-init="url = '/user'", ng-repeat="user in rows", ng-bind="user")
+    hr
   script(src='/javascripts/controller.js')
 
   h2 Initial data (jade)
