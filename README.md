@@ -188,9 +188,12 @@ Useful links
 ### Passport
 
 Authentication middleware. Express does not have anything like Django or
-Rails have, but Passport adds great capabilities.
+Rails have, but Passport adds great capabilities such as easy OpenID and OAuth (FB, Twitter, Google etc).
 
-    npm install --save passport passport-local
+Passport can be used along with any ORM or db. It provides callbacks to obtain the user object.
+It requires [`express-session`](#express-session) for session management.
+
+    npm install -S passport passport-local
 
 Useful links
 
@@ -198,16 +201,50 @@ Useful links
 
 - [Tutorial](http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619)
 
-- [Using sequelize with passport](http://www.hamiltonchapman.com/blog/2014/3/25/user-accounts-using-sequelize-and-passport-in-nodejs)
+- [Using sequelize with passport]
+  (http://www.hamiltonchapman.com/blog/2014/3/25/user-accounts-using-sequelize-and-passport-in-nodejs)
 
-- [Other tutorial](https://orchestrate.io/blog/2014/06/26/build-user-authentication-with-node-js-express-passport-and-orchestrate/)
+- [Other tutorial]
+  (https://orchestrate.io/blog/2014/06/26/build-user-authentication-with-node-js-express-passport-and-orchestrate/)
+
+- [Permissions middleware](https://www.npmjs.com/package/permission)
+
+### Express-session
+
+[This module](https://github.com/expressjs/session) is the standard for express session management.
+
+By default it uses a memory store for cookies, but this is supposed to work only for dev environments
+(gives mem leaks too).
+Therefore [a different store](https://github.com/expressjs/session#compatible-session-stores) is required.
+Django uses [db storage by default]
+(https://docs.djangoproject.com/en/1.9/topics/http/sessions/#configuring-the-session-engine),
+but since a choice is necessary, the best option seems to be [redis](https://www.npmjs.com/package/connect-redis)
+(no memcached option).
+
+Other configuration
+
+- [`name`](https://github.com/expressjs/session#name): cookie name, if on shared host
+
+- [`secret`](https://github.com/expressjs/session#secret): a secret string to sign the cookie, use something
+  [like this](https://docs.djangoproject.com/en/1.9/ref/settings/#secret-key), required
+
+### Caching
+
+Combining with `connect-redis` for `express-session`, redis can be used for route caching too with
+[express-redis-cache](https://www.npmjs.com/package/express-redis-cache).
+
+Useful links
+
+- [Configuring redis](http://redis.io/topics/config)
+- [Redis INFO command](http://redis.io/commands/INFO)
+- [Sending commands to redis](https://github.com/NodeRedis/node_redis#sending-commands)
+- [Using memcached](https://github.com/addisonj/node-cacher)
 
 ### Other interesting modules
 
 - [i18n](https://github.com/mashpie/i18n-node)
 - [multer](https://github.com/expressjs/multer)
 - [express-debug](http://stackoverflow.com/a/34574680/940098)
-- [caching](https://github.com/addisonj/node-cacher)
 
 
 ## Deployment
