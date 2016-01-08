@@ -107,6 +107,7 @@ Useful links
 - [Bookshelf](http://bookshelfjs.org/)
 - [Tutorial](http://davidhunt.io/making-a-new-node-js-app-feel-more-like-rails-part-1)
 - [CRUD examples](http://blog.ragingflame.co.za/2014/12/16/building-a-simple-api-with-express-and-bookshelfjs)
+- **[More on bookshelf](docs/bookshelf.md)**
 
 
 ## Jade
