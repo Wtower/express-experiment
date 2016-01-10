@@ -24,6 +24,7 @@ been selected.
 - [Bower](#bower) (asset management)
 - [Angular](#angular)
 - [Less](#less) (css preprocessor)
+- [i18n](#i18n) (internationalization)
 - [Passport](#passport) (user auth)
 
 Other topics:
@@ -180,7 +181,7 @@ Then in `app.js` add:
 Url-based i18n routing can easily be handled by express itself.
 Use `i18n-node` for l10n support:
 
-    npm install -S i18n-node
+    npm install -S i18n
 
 Add a small middleware in `services/i18n_urls.js` and use in `app.js` with `app.use`.
 The middleware assigns the language from url to the request object.
