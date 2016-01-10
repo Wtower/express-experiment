@@ -23,6 +23,7 @@ been selected.
 - [Jade](#jade) (templates)
 - [Bower](#bower) (asset management)
 - [Angular](#angular)
+- [Less](#less) (css preprocessor)
 - [Passport](#passport) (user auth)
 
 Other topics:
@@ -72,7 +73,7 @@ it seems like it is trying to do too much magic with many different db possibili
 it ends up using the lowest common denominator.
 Some critique [here](https://kev.inburke.com/kevin/dont-use-sails-or-waterline/).
 
-Guide:
+### Guide
 
     npm install -S bookshelf knex sqlite3 checkit moment
     node_modules/.bin/knex init
@@ -93,12 +94,20 @@ Then create the routes and views in `routes/index.js` and `views/`.
 
 Notice: Bookshelf should be initialised once, if console logs more than one init then move require to app.js.
 
+### Migrations
+
+Chaining schema definition functions [should be ok](https://github.com/tgriesser/knex/issues/245#issuecomment-40743838).
+However [another issue](https://github.com/tgriesser/knex/issues/993) suggests to use promises instead;
+use this if simple migrations do not work.
+Also, [another post](http://stackoverflow.com/questions/22624879/how-to-do-knex-js-migrations) suggests to
+reduce the pool size.
+
 Useful links
 
 - [Bookshelf](http://bookshelfjs.org/)
 - [Tutorial](http://davidhunt.io/making-a-new-node-js-app-feel-more-like-rails-part-1)
-- [Migration order](https://github.com/tgriesser/knex/issues/993)
 - [CRUD examples](http://blog.ragingflame.co.za/2014/12/16/building-a-simple-api-with-express-and-bookshelfjs)
+- **[More on bookshelf](docs/bookshelf.md)**
 
 
 ## Jade
@@ -154,6 +163,40 @@ Useful links
 - [Angular in express](http://briantford.com/blog/angular-express)
 
 
+## Less
+
+Using the [Less](http://lesscss.org/) css preprocessor is very easy with node,
+and helps deal with css maintenance a lot.
+
+    npm install -S less-middleware
+
+Then in `app.js` add:
+
+    app.use(require('less-middleware')(path.join(__dirname, 'public')));
+
+
+## i18n
+
+Url-based i18n routing can easily be handled by express itself.
+Use `i18n-node` for l10n support:
+
+    npm install -S i18n-node
+
+Add a small middleware in `services/i18n_urls.js` and use in `app.js` with `app.use`.
+The middleware assigns the language from url to the request object.
+Then configure module with `i18n.configure()`.
+The i18n routes can be handled with a helper function.
+The assigned language can then be accessed from eg controllers as `req.getLocale()`.
+
+Useful links
+
+- https://github.com/mashpie/i18n-node
+- http://stackoverflow.com/questions/12186644/multi-language-routes-in-express-js
+- http://stackoverflow.com/questions/24446819/express-js-multilanguage-with-i18n-node
+- http://rbeere.tumblr.com/post/41212250036/internationalization-with-express-jade-and
+- https://www.npmjs.com/package/loc
+- http://stackoverflow.com/questions/14125997/difference-between-app-all-and-app-use
+
 ## Other important modules (not yet implemented)
 
 ### Csurf
@@ -168,9 +211,12 @@ Useful links
 ### Passport
 
 Authentication middleware. Express does not have anything like Django or
-Rails have, but Passport adds great capabilities.
+Rails have, but Passport adds great capabilities such as easy OpenID and OAuth (FB, Twitter, Google etc).
 
-    npm install --save passport passport-local
+Passport can be used along with any ORM or db. It provides callbacks to obtain the user object.
+It requires [`express-session`](#express-session) for session management.
+
+    npm install -S passport passport-local
 
 Useful links
 
@@ -178,16 +224,49 @@ Useful links
 
 - [Tutorial](http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619)
 
-- [Using sequelize with passport](http://www.hamiltonchapman.com/blog/2014/3/25/user-accounts-using-sequelize-and-passport-in-nodejs)
+- [Using sequelize with passport]
+  (http://www.hamiltonchapman.com/blog/2014/3/25/user-accounts-using-sequelize-and-passport-in-nodejs)
 
-- [Other tutorial](https://orchestrate.io/blog/2014/06/26/build-user-authentication-with-node-js-express-passport-and-orchestrate/)
+- [Other tutorial]
+  (https://orchestrate.io/blog/2014/06/26/build-user-authentication-with-node-js-express-passport-and-orchestrate/)
+
+- [Permissions middleware](https://www.npmjs.com/package/permission)
+
+### Express-session
+
+[This module](https://github.com/expressjs/session) is the standard for express session management.
+
+By default it uses a memory store for cookies, but this is supposed to work only for dev environments
+(gives mem leaks too).
+Therefore [a different store](https://github.com/expressjs/session#compatible-session-stores) is required.
+Django uses [db storage by default]
+(https://docs.djangoproject.com/en/1.9/topics/http/sessions/#configuring-the-session-engine),
+but since a choice is necessary, the best option seems to be [redis](https://www.npmjs.com/package/connect-redis)
+(no memcached option).
+
+Other configuration
+
+- [`name`](https://github.com/expressjs/session#name): cookie name, if on shared host
+
+- [`secret`](https://github.com/expressjs/session#secret): a secret string to sign the cookie, use something
+  [like this](https://docs.djangoproject.com/en/1.9/ref/settings/#secret-key), required
+
+### Caching
+
+Combining with `connect-redis` for `express-session`, redis can be used for route caching too with
+[express-redis-cache](https://www.npmjs.com/package/express-redis-cache).
+
+Useful links
+
+- [Configuring redis](http://redis.io/topics/config)
+- [Redis INFO command](http://redis.io/commands/INFO)
+- [Sending commands to redis](https://github.com/NodeRedis/node_redis#sending-commands)
+- [Using memcached](https://github.com/addisonj/node-cacher)
 
 ### Other interesting modules
 
-- [i18n](https://github.com/mashpie/i18n-node)
 - [multer](https://github.com/expressjs/multer)
 - [express-debug](http://stackoverflow.com/a/34574680/940098)
-- [caching](https://github.com/addisonj/node-cacher)
 
 
 ## Deployment
@@ -309,11 +388,11 @@ or whatever specified in [retry setting]
 I chose to use Jetbrains [WebStorm](https://www.jetbrains.com/webstorm/). It offers several neat features
 that help development.
 
-### Configuration
+- Specify a `.editorconfig` file for the code styling.
+- Specify the appropriate nvm node version in *Settings: Language and frameworks: Node and NPM*.
+- Add express code completion in *Settings: Language and...: Javascript: Libraries: Download: express*.
 
-I specify a `.editorconfig` file for the code styling.
-Also, it is important to specify the appropriate nvm node version in
-Settings: Language and frameworks: Node and NPM.
+See also [this post](http://blog.jetbrains.com/webstorm/2014/01/getting-started-with-node-js-in-webstorm/).
 
 
 ## Conclusions
