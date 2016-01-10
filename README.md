@@ -29,6 +29,7 @@ been selected.
 
 Other topics:
 
+- [Promises](#promises)
 - [Deployment](#deployment)
 - [IDE](#ide)
 
@@ -268,6 +269,46 @@ Useful links
 
 - [multer](https://github.com/expressjs/multer)
 - [express-debug](http://stackoverflow.com/a/34574680/940098)
+
+
+## Promises
+
+Promises is a central point in node. Sooner or later a pyramid situation will come at play,
+where nesting callbacks make a horrible code. The use of promises is inevitable.
+[Bluebird](http://bluebirdjs.com/docs/getting-started.html) is an excellent library for helping with that.
+There is an [excellent tutorial](http://alexperry.io/node/2015/03/25/promises-in-node.html) on the subject.
+Nevertheless, the following important points must be acknowledged.
+
+Always return a promise from a chained `then()`. Otherwise the next `then` will be executed but will be missing
+some variables.
+
+A promisified function can return anything. The following example is with using Jade:
+
+    jade.renderFileAsync('views/index.jade', {title: 'yoo'}).then(function (html) {
+      // do sth
+      return html;
+    }));
+
+Last, `Promise.all()` can be used straightforward. Can supply any number of functions that return promises,
+even with any number of chains:
+
+    for (var i = 0; i < 10; i++) {
+      renders.push(jade.renderFileAsync('views/index.jade', {title: 'yoo'}).then(function (html) {
+        // do sth
+        return html;
+      }));
+    }
+    return Promise.all(renders).then(function (renders) {
+      page.content = renders;
+      return page;
+    });
+
+Useful links
+
+- http://bluebirdjs.com/docs/getting-started.html
+- http://alexperry.io/node/2015/03/25/promises-in-node.html
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+- http://stackoverflow.com/questions/21298190/bluebird-promises-and-then
 
 
 ## Deployment
