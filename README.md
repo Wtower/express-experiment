@@ -175,6 +175,28 @@ Then in `app.js` add:
     app.use(require('less-middleware')(path.join(__dirname, 'public')));
 
 
+## i18n
+
+Url-based i18n routing can easily be handled by express itself.
+Use `i18n-node` for l10n support:
+
+    npm install -S i18n-node
+
+Add a small middleware in `services/i18n_urls.js` and use in `app.js` with `app.use`.
+The middleware assigns the language from url to the request object.
+Then configure module with `i18n.configure()`.
+The i18n routes can be handled with a helper function.
+The assigned language can then be accessed from eg controllers as `req.getLocale()`.
+
+Useful links
+
+- https://github.com/mashpie/i18n-node
+- http://stackoverflow.com/questions/12186644/multi-language-routes-in-express-js
+- http://stackoverflow.com/questions/24446819/express-js-multilanguage-with-i18n-node
+- http://rbeere.tumblr.com/post/41212250036/internationalization-with-express-jade-and
+- https://www.npmjs.com/package/loc
+- http://stackoverflow.com/questions/14125997/difference-between-app-all-and-app-use
+
 ## Other important modules (not yet implemented)
 
 ### Csurf
@@ -243,7 +265,6 @@ Useful links
 
 ### Other interesting modules
 
-- [i18n](https://github.com/mashpie/i18n-node)
 - [multer](https://github.com/expressjs/multer)
 - [express-debug](http://stackoverflow.com/a/34574680/940098)
 
