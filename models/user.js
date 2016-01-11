@@ -1,7 +1,7 @@
 var services  = require('../services');
 var checkit   = require('checkit');
 
-module.exports = services.bookshelf.Model.extend({
+module.exports = services.bookshelf.model('User', {
   tableName: 'user',
   hasTimestamps: ['created_at', 'updated_at'],
   initialize: function(attrs, opts) {
