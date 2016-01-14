@@ -24,10 +24,12 @@ been selected.
 - [Bower](#bower) (asset management)
 - [Angular](#angular)
 - [Less](#less) (css preprocessor)
+- [i18n](#i18n) (internationalization)
 - [Passport](#passport) (user auth)
 
 Other topics:
 
+- [Promises](#promises)
 - [Deployment](#deployment)
 - [IDE](#ide)
 
@@ -92,22 +94,13 @@ Edit the newly created file in migrations and then:
 
 Then create the routes and views in `routes/index.js` and `views/`.
 
-Notice: Bookshelf should be initialised once, if console logs more than one init then move require to app.js.
-
-### Migrations
-
-Chaining schema definition functions [should be ok](https://github.com/tgriesser/knex/issues/245#issuecomment-40743838).
-However [another issue](https://github.com/tgriesser/knex/issues/993) suggests to use promises instead;
-use this if simple migrations do not work.
-Also, [another post](http://stackoverflow.com/questions/22624879/how-to-do-knex-js-migrations) suggests to
-reduce the pool size.
+**[More on bookshelf](docs/bookshelf.md)**
 
 Useful links
 
 - [Bookshelf](http://bookshelfjs.org/)
 - [Tutorial](http://davidhunt.io/making-a-new-node-js-app-feel-more-like-rails-part-1)
 - [CRUD examples](http://blog.ragingflame.co.za/2014/12/16/building-a-simple-api-with-express-and-bookshelfjs)
-- **[More on bookshelf](docs/bookshelf.md)**
 
 
 ## Jade
@@ -180,7 +173,7 @@ Then in `app.js` add:
 Url-based i18n routing can easily be handled by express itself.
 Use `i18n-node` for l10n support:
 
-    npm install -S i18n-node
+    npm install -S i18n
 
 Add a small middleware in `services/i18n_urls.js` and use in `app.js` with `app.use`.
 The middleware assigns the language from url to the request object.
@@ -267,6 +260,46 @@ Useful links
 
 - [multer](https://github.com/expressjs/multer)
 - [express-debug](http://stackoverflow.com/a/34574680/940098)
+
+
+## Promises
+
+Promises is a central point in node. Sooner or later a pyramid situation will come at play,
+where nesting callbacks make a horrible code. The use of promises is inevitable.
+[Bluebird](http://bluebirdjs.com/docs/getting-started.html) is an excellent library for helping with that.
+There is an [excellent tutorial](http://alexperry.io/node/2015/03/25/promises-in-node.html) on the subject.
+Nevertheless, the following important points must be acknowledged.
+
+Always return a promise from a chained `then()`. Otherwise the next `then` will be executed but will be missing
+some variables.
+
+A promisified function can return anything. The following example is with using Jade:
+
+    jade.renderFileAsync('views/index.jade', {title: 'yoo'}).then(function (html) {
+      // do sth
+      return html;
+    }));
+
+Last, `Promise.all()` can be used straightforward. Can supply any number of functions that return promises,
+even with any number of chains:
+
+    for (var i = 0; i < 10; i++) {
+      renders.push(jade.renderFileAsync('views/index.jade', {title: 'yoo'}).then(function (html) {
+        // do sth
+        return html;
+      }));
+    }
+    return Promise.all(renders).then(function (renders) {
+      page.content = renders;
+      return page;
+    });
+
+Useful links
+
+- http://bluebirdjs.com/docs/getting-started.html
+- http://alexperry.io/node/2015/03/25/promises-in-node.html
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+- http://stackoverflow.com/questions/21298190/bluebird-promises-and-then
 
 
 ## Deployment

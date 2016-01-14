@@ -5,6 +5,15 @@ More information regarding the use of Bookshelf.
 [Back to home page](../README.md)
 
 
+## Migrations
+
+Chaining schema definition functions [should be ok](https://github.com/tgriesser/knex/issues/245#issuecomment-40743838).
+However [another issue](https://github.com/tgriesser/knex/issues/993) suggests to use promises instead;
+use this if simple migrations do not work.
+Also, [another post](http://stackoverflow.com/questions/22624879/how-to-do-knex-js-migrations) suggests to
+reduce the pool size.
+
+
 ## Define model
 
 `models/<model>.js`
@@ -203,3 +212,32 @@ such as Django's `select_related` provides. Rather provide a join manually.
 
 Since this is more complicated and in larger projects may lead to much more complexity,
 use where the number of queries matter.
+
+
+## Registry
+
+The plugin Registry is apparently essential to Bookshelf:
+
+> Circular dependencies are almost guaranteed if you're defining relationships between your model.
+
+Therefore initialize with `bookshelf.plugin('registry')` and the models should be defined as:
+
+    // file: customer.js
+    require('./order');
+    module.exports = bookshelf.model('Customer', {
+      tableName: 'customers',
+      orders: function() {
+        return this.hasMany('Order');
+      }
+    });
+
+    // file: order.js
+    require('./customer');
+    module.exports = bookshelf.model('Order', {
+      tableName: 'orders',
+      customer: function() {
+        return this.belongsTo('Customer');
+      }
+    });
+
+[Link](https://github.com/tgriesser/bookshelf/wiki/Plugin:-Model-Registry)
