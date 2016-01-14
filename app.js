@@ -6,8 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var i18n = require('i18n');
 var services = require('./services');
-//var ninetd = require('./ninetestdir')(services);
-services.bookshelf.user.fetchAll().then(function(users) {console.log(users); });
 
 var routes = require('./routes/index');
 var routes_user = require('./routes/user');
