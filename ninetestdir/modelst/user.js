@@ -1,14 +1,14 @@
 //var services  = require('../').settings;
 //var services  = require('../../services');
 
-var services  = require('../servicest/bookshelf');
-console.log('ninetest user');
+//var services  = require('../servicest/bookshelf');
+//console.log('ninetest user');
 //console.log(services.bookshelf);
 
-module.exports = services.bookshelf.model('User2', {
-  tableName: 'user',
-  hasTimestamps: ['created_at', 'updated_at']
-});
+//module.exports = services.bookshelf.model('User2', {
+//  tableName: 'user',
+//  hasTimestamps: ['created_at', 'updated_at']
+//});
 
 //module.exports = function() {
 //  console.log('user exported');
@@ -28,3 +28,10 @@ module.exports = services.bookshelf.model('User2', {
 //    hasTimestamps: ['created_at', 'updated_at']
 //  });
 //};
+
+module.exports = function(bookshelf) {
+  return bookshelf.model('User2', bookshelf.Model.extend({
+    tableName: 'user',
+    hasTimestamps: ['created_at', 'updated_at']
+  }));
+};
