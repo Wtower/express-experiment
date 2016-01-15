@@ -24,6 +24,18 @@ fs
     db[model.name] = model;
   });
 
+// additional models can be called from any directory
+//fs
+//  .readdirSync(__dirname + '/../mymodule/models')
+//  .filter(function(file) {
+//    console.log(file);
+//    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+//  })
+//  .forEach(function(file) {
+//    var model = sequelize['import'](path.join(__dirname + '/../mymodule/models', file));
+//    db[model.name] = model;
+//  });
+
 Object.keys(db).forEach(function(modelName) {
   if (db[modelName].associate) {
     db[modelName].associate(db);

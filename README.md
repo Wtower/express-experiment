@@ -56,11 +56,23 @@ Then edit the following files as in tutorial
 - routes/index.js
 - views/index.jade
 
+Update: Sequelize is much better designed in respect with initialization and module reuse.
+It initialises the models without using `require`, the models can be easily [attached to the app]
+(http://stackoverflow.com/questions/18880142/access-app-variable-inside-of-expressjs-connectjs-middleware).
+
+After further experiments, it is apparent that any ORM tech is still very young.
+Documentation is very scarce and many issues are still open.
+
 Useful links
 
 - [Getting Started](http://docs.sequelizejs.com/en/latest/docs/getting-started/)
-
 - [Express example](https://github.com/sequelize/express-example)
+- [How to import](http://docs.sequelizejs.com/en/latest/api/sequelize/#importpath-model)
+- [Associations](http://docs.sequelizejs.com/en/latest/docs/associations/)
+- [Model definition](http://docs.sequelizejs.com/en/latest/docs/models-definition/)
+- [How to organize an app](http://stackoverflow.com/questions/12487416/how-to-organize-a-node-app-that-uses-sequelize)
+- [Issue: Database migrations fail to add foreign key](https://github.com/sequelize/sequelize/issues/966)
+- [Issue: Field with reference in migration](https://github.com/sequelize/sequelize/issues/5229)
 
 ### Migrations
 

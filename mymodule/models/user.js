@@ -1,3 +1,5 @@
+// This can be also invoked directly in models/index
+
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
@@ -18,13 +20,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     {
       tableName: 'User',
-      timestamps: false,
-      classMethods: {
-        associate: function(models) {
-          User.hasMany(models.Page)
-        }
-      }
-    }
+      timestamps: false    }
   );
   return User;
 };

@@ -1,7 +1,10 @@
 {
   "development": {
-    "dialect": "sqlite",
-    "storage": "./db.development.sqlite"
+    "dialect": "mysql",
+    "username": "express",
+    "password": "express",
+    "database": "express",
+    "host": "127.0.0.1"
   },
   "test": {
     "dialect": "sqlite",

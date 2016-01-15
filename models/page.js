@@ -7,6 +7,8 @@ module.exports = function(sequelize, DataTypes) {
       title: DataTypes.STRING
     },
     {
+      tableName: 'Page',
+      timestamps: false,
       classMethods: {
         associate: function(models) {
           Page.belongsTo(models.User, {

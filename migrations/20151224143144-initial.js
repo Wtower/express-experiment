@@ -8,7 +8,7 @@ module.exports = {
       {
         id: {type: Sequelize.INTEGER, primaryKey: true},
         username: {type: Sequelize.STRING, unique: true, validate: {is: /^[\w.@+-]+$/i}},
-        password: {type: Sequelize.STRING, validate: {notEmpty: true}},
+        password: {type: Sequelize.STRING, allowNull: false, validate: {notEmpty: true}},
         email: {type: Sequelize.STRING, validate: {isEmail: true}},
         first_name: Sequelize.STRING(30),
         last_name: Sequelize.STRING(30),
@@ -17,37 +17,20 @@ module.exports = {
         is_superuser: Sequelize.BOOLEAN,
         date_joined: Sequelize.DATE,
         last_login: Sequelize.DATE
-      },
-      {
-        classMethods: {
-          associate: function(models) {
-            User.hasMany(models.Page)
-          }
-        }
       }
     );
     queryInterface.createTable(
       "Page",
       {
-        title: Sequelize.STRING
-      },
-      {
-        classMethods: {
-          associate: function(models) {
-            Page.belongsTo(models.User, {
-              onDelete: "SET NULL",
-              foreignKey: {
-                allowNull: false
-              }
-            });
-          }
-        }
+        id: {type: Sequelize.INTEGER, primaryKey: true},
+        title: Sequelize.STRING,
+        user_id: {type: Sequelize.INTEGER, references: {model: 'User', key: 'id'}, onUpdate: 'CASCADE'}
       }
     );
   },
 
   down: function (queryInterface) {
-    queryInterface.dropTable('User');
     queryInterface.dropTable('Page');
+    queryInterface.dropTable('User');
   }
 };
