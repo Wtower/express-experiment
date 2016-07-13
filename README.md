@@ -3,6 +3,7 @@
 
 Learning express.js for people coming from Django or Rails background.
 
+See also [express-boilerplate](https://github.com/Wtower/express-boilerplate)
 
 ## Summary
 
