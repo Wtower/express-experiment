@@ -30,6 +30,7 @@ been selected.
 Other topics:
 
 - [Promises](#promises)
+- [Reusable apps](#reusable-apps)
 - [Deployment](#deployment)
 - [IDE](#ide)
 
@@ -260,6 +261,7 @@ Useful links
 
 - [multer](https://github.com/expressjs/multer)
 - [express-debug](http://stackoverflow.com/a/34574680/940098)
+- [image resize](http://stackoverflow.com/questions/24026320/node-js-image-resizing-without-imagemagick)
 
 
 ## Promises
@@ -300,6 +302,17 @@ Useful links
 - http://alexperry.io/node/2015/03/25/promises-in-node.html
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
 - http://stackoverflow.com/questions/21298190/bluebird-promises-and-then
+
+
+## Reusable apps
+
+Useful links
+
+- [Singletons](http://justjs.com/posts/creating-reusable-express-modules-with-their-own-routes-views-and-static-assets)
+- [NPM tags](https://gist.github.com/coolaj86/1318304)
+- [Publishing](https://quickleft.com/blog/creating-and-publishing-a-node-js-module/)
+- [How to write](http://www.hacksparrow.com/how-to-write-node-js-modules.html)
+- [Copyfiles](https://www.npmjs.com/package/copyfiles)
 
 
 ## Deployment
